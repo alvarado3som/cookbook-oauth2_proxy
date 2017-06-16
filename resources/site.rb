@@ -39,6 +39,8 @@ attribute :client_secret, kind_of: String
 
 attribute :pass_access_token, kind_of: [TrueClass, FalseClass]
 
+attribute :pass_roles_header, kind_of: [TrueClass, FalseClass]
+
 attribute :authenticated_emails_file, kind_of: String
 
 attribute :htpasswd_file, kind_of: String
