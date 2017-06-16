@@ -27,14 +27,27 @@ git 'oauth2-proxy' do
     destination "#{node[:oauth2_proxy][:go_path]}/src/github.com/bitly/oauth2_proxy"
     repository  "https://github.com/kindlyops/oauth2_proxy.git"
     revision    "github-teams-tweaks"
+    notifies    :run, "execute[Get oauth2_proxy dependancies]", :immediate
     notifies    :run, "execute[Compile oauth2_proxy]", :immediate
 end
 
-execute "Compile oauth2_proxy" do
+execute "Get oauth2_proxy dependancies" do
     command     "go get"
     environment ({ "GOPATH" => "#{node[:oauth2_proxy][:go_path]}"})
     cwd         "#{node[:oauth2_proxy][:go_path]}/src/github.com/bitly/oauth2_proxy"
     action      :nothing
+end
+
+execute "Compile oauth2_proxy" do
+    command     "go build"
+    environment ({ "GOPATH" => "#{node[:oauth2_proxy][:go_path]}"})
+    cwd         "#{node[:oauth2_proxy][:go_path]}/src/github.com/bitly/oauth2_proxy"
+    action      :nothing
+end
+
+execute "Move compiled oauth2_proxy binary" do
+    command "mv #{node[:oauth2_proxy][:go_path]}/src/github.com/bitly/oauth2_proxy/oauth2_proxy #{node['oauth2_proxy']['install_path']}"
+    only_if "test -f #{node[:oauth2_proxy][:go_path]}/src/github.com/bitly/oauth2_proxy/oauth2_proxy"
 end
 
 directory node['oauth2_proxy']['config_files'] do
