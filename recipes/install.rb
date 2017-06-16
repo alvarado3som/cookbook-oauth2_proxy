@@ -19,12 +19,12 @@ include_recipe 'pleaserun::default'
 
 ### Let's build the version from the source
 package "golang-go"
-directory "/tmp/go/src/github/bitly" do
+directory "#{node[:oauth2_proxy][:go_path]}/src/github.com/bitly" do
     recursive true
 end
 
 git 'oauth2-proxy' do
-    destination "/tmp/go/src/github/bitly/oauth2_proxy"
+    destination "#{node[:oauth2_proxy][:go_path]}/src/github.com/bitly/oauth2_proxy"
     repository  "https://github.com/kindlyops/oauth2_proxy.git"
     revision    "github-teams-tweaks"
     notifies    :run, "execute[Compile oauth2_proxy]", :immediate
@@ -32,8 +32,8 @@ end
 
 execute "Compile oauth2_proxy" do
     command     "go get"
-    environment ({ "GOPATH" => "/tmp/go"})
-    cwd         "/tmp/go/src/github/bitly/oauth2_proxy"
+    environment ({ "GOPATH" => "#{node[:oauth2_proxy][:go_path]}"})
+    cwd         "#{node[:oauth2_proxy][:go_path]}/src/github.com/bitly/oauth2_proxy"
     action      :nothing
 end
 
