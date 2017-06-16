@@ -28,6 +28,7 @@ git 'oauth2-proxy' do
     repository  "https://github.com/kindlyops/oauth2_proxy.git"
     revision    "github-teams-tweaks"
     notifies    :run, "execute[Get oauth2_proxy dependancies]", :immediate
+    notifies    :run, "execute[Patch oauth2_proxy]", :immediate
     notifies    :run, "execute[Compile oauth2_proxy]", :immediate
 end
 
@@ -36,6 +37,12 @@ execute "Get oauth2_proxy dependancies" do
     environment ({ "GOPATH" => "#{node[:oauth2_proxy][:go_path]}"})
     cwd         "#{node[:oauth2_proxy][:go_path]}/src/github.com/bitly/oauth2_proxy"
     action      :nothing
+end
+
+execute "Patch oauth2_proxy" do
+    command "curl https://github.com/donaldguy/oauth2_proxy/commit/8965e6b58a3afd8ad9f0f326f91b25253c88d523.patch | git apply --apply"
+    cwd     "#{node[:oauth2_proxy][:go_path]}/src/github.com/bitly/oauth2_proxy"
+    action  :nothing
 end
 
 execute "Compile oauth2_proxy" do
