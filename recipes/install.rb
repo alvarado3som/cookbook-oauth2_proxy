@@ -32,7 +32,7 @@ end
 
 execute "Compile oauth2_proxy" do
     command     "go get"
-    environment ({ GOPATH => "/tmp/go"})
+    environment ({ "GOPATH" => "/tmp/go"})
     cwd         "/tmp/go/src/github/bitly/oauth2_proxy"
     action      :nothing
 end
