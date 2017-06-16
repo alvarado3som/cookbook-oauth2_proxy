@@ -1,5 +1,10 @@
 # oauth2_proxy
 
+```
+This cookbook is a fork of the cookbook in the supermarket (https://github.com/reverseskate/cookbook-oauth2_proxy)
+It enables a version of oauth2-proxy compatible with github teams
+```
+
 ![image](https://circleci.com/gh/orion-cookbooks/oauth2_proxy/tree/master.svg?style=shield&circle-token=89bd4ccd24e3a88c0149ac1f3f8f82b936fe5017)
 
 Cookbook to install and configure [oauth2_proxy](https://github.com/bitly/oauth2_proxy) with LWRP
