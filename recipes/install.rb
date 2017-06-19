@@ -52,6 +52,10 @@ execute "Compile oauth2_proxy" do
     action      :nothing
 end
 
+directory "#{node['oauth2_proxy']['install_path']}" do
+    recursive true
+end
+
 execute "Move compiled oauth2_proxy binary" do
     command "mv #{node[:oauth2_proxy][:go_path]}/src/github.com/bitly/oauth2_proxy/oauth2_proxy #{node['oauth2_proxy']['install_path']}"
     only_if "test -f #{node[:oauth2_proxy][:go_path]}/src/github.com/bitly/oauth2_proxy/oauth2_proxy"
