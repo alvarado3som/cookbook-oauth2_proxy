@@ -62,10 +62,15 @@ action :create do
     notifies :restart, "service[oauth2_proxy-#{new_resource.name}]"
   end
 
+  service_arguments = [ "-config=#{oauth2_proxy_cfg_path}" ]
+  if new_resource.skip_provider_button
+    service_arguments << "-skip-provider-button"
+  end
+
   pleaserun "oauth2_proxy-#{new_resource.name}" do
     name "oauth2_proxy-#{new_resource.name}"
     program ::File.join(node['oauth2_proxy']['install_path'],'oauth2_proxy')
-    args [ "-config=#{oauth2_proxy_cfg_path}" ]
+    args service_arguments
     description "oauth2_proxy for #{new_resource.name}"
     action :create
   end

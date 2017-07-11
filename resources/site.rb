@@ -62,6 +62,8 @@ attribute :google_group, kind_of: String
 attribute :google_admin_email, kind_of: String
 attribute :google_service_account_json, kind_of: String
 
+attribute :skip_provider_button, kind_of: [TrueClass, FalseClass]
+
 
 def initialize(*args)
   super
