@@ -66,6 +66,11 @@ action :create do
   if new_resource.skip_provider_button
     service_arguments << "-skip-provider-button"
   end
+  if new_resource.skip_auth_regex
+    new_resource.skip_auth_regex.each do |regex|
+      service_arguments << "-skip-auth-regex=#{regex}"
+    end
+  end
 
   pleaserun "oauth2_proxy-#{new_resource.name}" do
     name "oauth2_proxy-#{new_resource.name}"

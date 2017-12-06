@@ -64,6 +64,8 @@ attribute :google_service_account_json, kind_of: String
 
 attribute :skip_provider_button, kind_of: [TrueClass, FalseClass]
 
+attribute :skip_auth_regex, kind_of: [Array, Hash]
+
 
 def initialize(*args)
   super
