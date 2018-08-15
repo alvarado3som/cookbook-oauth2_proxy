@@ -3,6 +3,12 @@
 ```
 This cookbook is a fork of the cookbook in the supermarket (https://github.com/reverseskate/cookbook-oauth2_proxy)
 It enables a version of oauth2-proxy compatible with github teams and add some flags you can enable with LWRP
+- skip-provider-button
+- set_xauthrequest
+- skip-auth-regex
+- pass_roles_header
+
+
 ```
 
 ![image](https://circleci.com/gh/orion-cookbooks/oauth2_proxy/tree/master.svg?style=shield&circle-token=89bd4ccd24e3a88c0149ac1f3f8f82b936fe5017)

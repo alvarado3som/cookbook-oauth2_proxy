@@ -66,6 +66,9 @@ action :create do
   if new_resource.skip_provider_button
     service_arguments << "-skip-provider-button"
   end
+  if new_resource.set_xauthrequest
+    service_arguments << "-set-xauthrequest"
+  end
   if new_resource.skip_auth_regex
     new_resource.skip_auth_regex.each do |regex|
       service_arguments << "-skip-auth-regex=#{regex}"

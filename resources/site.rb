@@ -66,6 +66,8 @@ attribute :skip_provider_button, kind_of: [TrueClass, FalseClass]
 
 attribute :skip_auth_regex, kind_of: [Array, Hash]
 
+attribute :set_xauthrequest, kind_of: [TrueClass, FalseClass]
+
 
 def initialize(*args)
   super
