@@ -111,5 +111,9 @@ def load_current_resource
     action :nothing
   end.run_action(:install)
 
-  @current_resource = Chef::Resource::Oauth2ProxySite.new(@new_resource.name)
+  if Chef::VERSION.start_with?('12')
+    @current_resource = Chef::Resource::Oauth2ProxySite.new(@new_resource.name)
+  else
+    @current_resource = run_context.resource_collection.lookup("oauth2_proxy_site[#{new_resource.name}]") rescue nil
+  end
 end
